@@ -1,9 +1,17 @@
 const mysql = require('mysql');
 const config = require('./config');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+
 
 // Create a connection pool
 const pool = mysql.createPool(config);
+
+const sessionStore = new MySQLStore({
+    expiration: 86400000, 
+    createDatabaseTable: true, // Automatically create session table if not exists
+  }, pool);
 
 // Function to execute SQL queries
 function executeQuery(query, params = []) {
@@ -161,5 +169,5 @@ function createBook(bookName, createdBy) {
   }
 
 module.exports = {
-  executeQuery, login,createUsersTable, createBooksTable, signup, createBook, getBooksByUsername, searchBooks
+  executeQuery, login,createUsersTable, createBooksTable, signup, createBook, getBooksByUsername, searchBooks, sessionStore
 };
