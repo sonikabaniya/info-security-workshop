@@ -1,0 +1,20 @@
+<!-- views/mybooks.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Books</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Welcome to the book club, <%= session.username %>!</h1>
+    <a href="/create-my-book">Create my book</a><br>
+    <a href="/logout">Logout</a><br>
+  <ul>
+    <% books.forEach(book => { %>
+        <li><%= book.name %> - Created by: <%= book.createdby %></li>
+      <% }) %>
+  </ul>
+</body>
+</html>

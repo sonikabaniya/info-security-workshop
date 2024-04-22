@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Welcome to the Dashboard, <%= session.username %>!</h1>
+    <a href="/logout">Logout</a><br><br>
+
+  <form action="/create-my-books" method="POST">
+    <div>
+      <label for="name">Name of book:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>
