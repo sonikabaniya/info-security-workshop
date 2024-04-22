@@ -144,6 +144,22 @@ function createBook(bookName, createdBy) {
     });
   }
 
+  function searchBooks(query, user) {
+    return new Promise((resolve, reject) => {
+      const searchTerm = `%${query}%`; 
+  
+      pool.query('SELECT * FROM books WHERE name LIKE ? AND createdby = ?', [searchTerm, user], (error, results) => {
+        if (error) {
+          console.error('Error searching books:', error);
+          reject(error);
+        } else {
+          console.log('Books found successfully');
+          resolve(results); // Resolve with the array of matching books
+        }
+      });
+    });
+  }
+
 module.exports = {
-  executeQuery, login,createUsersTable, createBooksTable, signup, createBook, getBooksByUsername
+  executeQuery, login,createUsersTable, createBooksTable, signup, createBook, getBooksByUsername, searchBooks
 };

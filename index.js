@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const { executeQuery,login, createBooksTable,createUsersTable, signup, createBook, getBooksByUsername } = require('./db');
+const { executeQuery,login, createBooksTable,createUsersTable, signup, createBook, getBooksByUsername, searchBooks } = require('./db');
 
 const app = express();
 
@@ -116,6 +116,18 @@ app.post('/create-my-books', (req, res) => {
     });
     
    
+  });
+
+  app.get('/search', (req, res) => {
+    const query = req.query.query;
+  
+    searchBooks(query, req.session.username )
+      .then((results) => {
+        res.render('mybooks', { session: req.session, books:results });
+      })
+      .catch((error) => {
+        res.status(500).send('Error searching books');
+      });
   });
 
 // Start the server

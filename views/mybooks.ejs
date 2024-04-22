@@ -1,4 +1,3 @@
-<!-- views/mybooks.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,22 @@
 </head>
 <body>
     <h1>Welcome to the book club, <%= session.username %>!</h1>
-    <a href="/create-my-book">Create my book</a><br>
-    <a href="/logout">Logout</a><br>
+    <div class="header" style="display: inline-block; vertical-align: top;">
+        <a href="/create-my-book">Create my book</a>
+        <a href="/logout">Logout</a><br>
+
+    </div>
+
+    <div class="search" style="display: inline-block; vertical-align: top;">
+
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search for books...">
+            <button type="submit">Search</button>
+            <button a="/my-books">Clear search</button>
+        </form>
+        
+
+    </div>
   <ul>
     <% books.forEach(book => { %>
         <li><%= book.name %> - Created by: <%= book.createdby %></li>
