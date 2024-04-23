@@ -1,0 +1,29 @@
+Example number 1:
+ 
+    const sqlquery = "SELECT * FROM books WHERE createdby LIKE " + " '"+ user +"' "+ " AND name =" + " '"+ query +"' "
+
+
+input injection value:
+
+' UNION SELECT * FROM books; --  '
+
+
+
+Mitigation:
+
+const sqlquery = 'SELECT * FROM books WHERE createdby LIKE ? AND name = ? '
+
+      pool.query(sqlquery, [user, query], (error, results) => {
+        if (error) {
+          console.error('Error searching books:', error);
+          reject(error);
+        } else {
+          console.log('Books found successfully');
+          resolve(results); // Resolve with the array of matching books
+        }
+      });
+
+
+Example number 2:
+
+' UNION DROP TABLE books; --  '

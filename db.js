@@ -154,9 +154,10 @@ function createBook(bookName, createdBy) {
 
   function searchBooks(query, user) {
     return new Promise((resolve, reject) => {
-      const searchTerm = `%${query}%`; 
-  
-      pool.query('SELECT * FROM books WHERE name LIKE ? AND createdby = ?', [searchTerm, user], (error, results) => {
+    //   const searchTerm = `%${query}%`; 
+    const sqlquery = "SELECT * FROM books WHERE createdby LIKE " + " '"+ user +"' "+ " AND name =" + " '"+ query +"' "
+
+    pool.query(sqlquery, [], (error, results) => {
         if (error) {
           console.error('Error searching books:', error);
           reject(error);
@@ -165,6 +166,7 @@ function createBook(bookName, createdBy) {
           resolve(results); // Resolve with the array of matching books
         }
       });
+
     });
   }
 
