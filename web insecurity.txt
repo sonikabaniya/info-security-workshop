@@ -24,7 +24,7 @@ Event Listeners and Direct Calls: Event listeners are designed to respond to eve
 
 2. Server Side Poisining
 
-There is a secretfile in our server whose name is secret.txt This consist an secret api key.
+There is a secretfile in our server. This consist an secret api key.
 
 In mycalculator.ejs, there is a server side function that does computation. But in behind its using eval() function. And we know eval function is vulnerable function. If we can inject code in eval() function we can take control of the server. Then we can find secret files of the server that was not meant to be found as a client of web application
 
