@@ -84,6 +84,19 @@ app.post('/signup', (req, res) => {
     });
   });
 
+  app.get('/my-calculator',requireLogin, (req, res) => {
+    res.render('mycalculator', { session: req.session });
+  });
+
+  app.post('/my-calculator',requireLogin, (req, res) => {
+    const { computation } = req.body;
+    var result = eval(computation);
+    res.render('mycalculator', { session: req.session, result });
+
+    });
+    
+   
+
   app.get('/logout', (req, res) => {
     // Clear session data
     req.session.destroy((err) => {

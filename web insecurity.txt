@@ -1,0 +1,52 @@
+1. Bypassing Client side checks
+
+In createbooks.ejs, there is a event handlers that checks if the title of the book is more than 20 character.
+
+Goal: Make this rule bypass and add book with title more than 20 characters.
+
+Solution:
+
+i. We can study the js code from dev source.
+ii. we know that code is using event handler for the rule.
+iii. This event handler is on pressing submit button. Here submit is an user event.
+iv. If we can do something like submiting form without triggering submit event.
+v. We can use default submit() method of DOM
+
+document.getElementById("bookForm").submit();
+
+Direct Invocation: When you call submit() directly on the form element, you're not simulating a user-triggered event like clicking a button or pressing Enter in an input field. Instead, you're directly invoking the form's submission behavior programmatically.
+
+Event Listeners and Direct Calls: Event listeners are designed to respond to events triggered by user interactions or other scripts. However, when you call methods directly on DOM elements (like submit()), these calls don't go through the event system, and thus, event listeners associated with the event won't be triggered.
+
+
+
+
+
+2. Server Side Poisining
+
+There is a secretfile in our server whose name is secret.txt This consist an secret api key.
+
+In mycalculator.ejs, there is a server side function that does computation. But in behind its using eval() function. And we know eval function is vulnerable function. If we can inject code in eval() function we can take control of the server. Then we can find secret files of the server that was not meant to be found as a client of web application
+
+Prerequisite knowledge before performing attack: The server code is written in node and express framework. 
+
+
+
+Inject input 
+
+Case I:
+
+process.cwd();
+
+Case II:
+
+const fs = require('fs'); 
+var a = fs.readdirSync(process.cwd());
+a;
+
+
+Case III:
+
+const fs = require('fs');
+const fileContents = fs.readFileSync(process.cwd() + '/secretfile.txt', 'utf8');
+fileContents;

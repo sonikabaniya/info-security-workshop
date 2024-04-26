@@ -5,12 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
   <link rel="stylesheet" href="/styles.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var form = document.getElementById("bookForm");
+
+      form.addEventListener("submit", function(event) {
+        var nameInput = document.getElementById("name");
+        if (nameInput.value.length > 20) {
+          alert("The name of the book cannot be longer than 20 characters.");
+          event.preventDefault(); // Prevent form submission
+        }
+      });
+    });
+  </script>
 </head>
 <body>
     <h1>Welcome to the Dashboard, <%= session.username %>!</h1>
     <a href="/logout">Logout</a><br><br>
 
-  <form action="/create-my-books" method="POST">
+  <form id="bookForm" action="/create-my-books" method="POST">
     <div>
       <label for="name">Name of book:</label>
       <input type="text" id="name" name="name" required>

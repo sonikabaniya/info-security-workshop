@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  
+</head>
+<body>
+    <h1>Welcome to the calculator, <%= session.username %>!</h1>
+    <a href="/logout">Logout</a><br><br>
+
+  <form action="/my-calculator" method="POST">
+    <div>
+      <label for="computation">Computation:</label>
+      <input type="text" id="computation" name="computation" required>
+    </div>
+    <button type="submit">Compute</button>
+
+    <% if(typeof result != "undefined") { %>
+        <p>The computational value is <%= result %> </p>
+     <% } %>
+  </form>
+</body>
+</html>

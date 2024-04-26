@@ -7,23 +7,25 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Welcome to the book club, <%= session.username %>!</h1>
-    <div class="header" style="display: inline-block; vertical-align: top;">
+  <h1>Welcome to the book club, <%= session.username %>!</h1>
+  <div class="search" style="display: inline-block; vertical-align: top; margin-left: 20px; ">
+
+      <form action="/search" method="GET">
+          <input type="text" name="query" placeholder="Search for books...">
+          <button type="submit">Search</button>
+          <a href="/my-books">Clear search</a>
+      </form>
+      
+
+  </div>
+    <div class="header" style="display: inline-block; vertical-align: top; margin-left: 50rem;">
         <a href="/create-my-book">Create my book</a>
+        <a href="/my-calculator">My calculator</a>
         <a href="/logout">Logout</a><br>
 
-    </div>
-
-    <div class="search" style="display: inline-block; vertical-align: top;">
-
-        <form action="/search" method="GET">
-            <input type="text" name="query" placeholder="Search for books...">
-            <button type="submit">Search</button>
-            <a href="/my-books">Clear search</a>
-        </form>
-        
 
     </div>
+
   <ul>
     <% books.forEach(book => { %>
         <li><%= book.name %> - Created by: <%= book.createdby %></li>
