@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Site</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Welcome to a Vulnerable Site</h1>
+        <p class="lead">This is a demo site with web vulnerability.</p>
+
+        <form id="commentForm" class="mb-3">
+            <div class="form-group">
+                <label for="email">Your email address:</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="comment">Leave a comment:</label>
+                <textarea id="comment" name="comment" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <div id="comments" class="mt-5">
+            <h2>Comments</h2>
+            <div id="commentsList">
+                <!-- Comments will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            var email = document.getElementById("email").value;
+            var comment = document.getElementById("comment").value;
+
+            // Create comment element
+            var commentElement = document.createElement("div");
+            commentElement.className = "comment mb-3";
+            commentElement.innerHTML = `
+                <div class="card">
+                    <div class="card-header">${email}</div>
+                    <div class="card-body">${comment}</div>
+                </div>
+            `;
+
+            // Append comment to comments list
+            document.getElementById("commentsList").appendChild(commentElement);
+
+            // Delayed execution to bypass browser's XSS protection
+            setTimeout(function() {
+                var scripts = commentElement.getElementsByTagName('script');
+                for (var i = 0; i < scripts.length; i++) {
+                    eval(scripts[i].innerHTML); // Execute script
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
